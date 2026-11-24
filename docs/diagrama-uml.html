@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama UML - Command</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #ffffff; }
+        svg { display: block; width: 1180px; max-width: 100%; height: auto; }
+        .nome { font-family: 'Segoe UI', sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle; fill: #2d3142; }
+        .membro { font-family: Consolas, monospace; font-size: 12px; fill: #2d3142; }
+        .tag { font-family: Consolas, monospace; font-size: 11px; text-anchor: middle; fill: #4f5d75; }
+    </style>
+</head>
+<body>
+<svg viewBox="0 0 1180 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diagrama-uml-title diagrama-uml-desc">
+    <title id="diagrama-uml-title">Diagrama de classes do padrão Command</title>
+    <desc id="diagrama-uml-desc">ControleRemoto invoca objetos Comando; LigarLampadaComando e AjustarTemperaturaComando realizam a interface e chamam os receptores Lampada e Termostato.</desc>
+    <defs>
+        <marker id="heranca" markerWidth="16" markerHeight="12" refX="16" refY="6" orient="auto" markerUnits="userSpaceOnUse"><polygon points="0 0,16 6,0 12" fill="#ffffff" stroke="#2d3142"/></marker>
+        <marker id="associacao" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8" fill="none" stroke="#4f5d75"/></marker>
+        <marker id="agregacao" markerWidth="18" markerHeight="10" refX="0" refY="5" orient="auto" markerUnits="userSpaceOnUse"><polygon points="0 5,9 0,18 5,9 10" fill="#ffffff" stroke="#2d3142"/></marker>
+        <marker id="composicao" markerWidth="18" markerHeight="10" refX="0" refY="5" orient="auto" markerUnits="userSpaceOnUse"><polygon points="0 5,9 0,18 5,9 10" fill="#2d3142" stroke="#2d3142"/></marker>
+    </defs>
+    <rect width="1180" height="820" fill="#ffffff"/>
+
+    <line x1="500" y1="100" x2="680" y2="100" stroke="#4f5d75" marker-end="url(#associacao)"/>
+    <rect x="506" y="78" width="16" height="16" fill="#ffffff"/><text x="508" y="90" class="membro">1</text>
+    <rect x="638" y="78" width="40" height="16" fill="#ffffff"/><text x="640" y="90" class="membro">0..*</text>
+    <path d="M300 300 V230 H780 V140" fill="none" stroke="#2d3142" stroke-dasharray="5,4" marker-end="url(#heranca)"/>
+    <path d="M890 300 V140" fill="none" stroke="#2d3142" stroke-dasharray="5,4" marker-end="url(#heranca)"/>
+    <line x1="300" y1="420" x2="300" y2="600" stroke="#4f5d75" marker-end="url(#associacao)"/>
+    <rect x="308" y="578" width="16" height="16" fill="#ffffff"/><text x="310" y="590" class="membro">1</text>
+    <line x1="890" y1="460" x2="890" y2="600" stroke="#4f5d75" marker-end="url(#associacao)"/>
+    <rect x="898" y="578" width="16" height="16" fill="#ffffff"/><text x="900" y="590" class="membro">1</text>
+
+    <g id="controle-remoto">
+        <rect x="40" y="40" width="460" height="140" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M46 40 H494 Q500 40 500 46 V76 H40 V46 Q40 40 46 40" fill="#f1f3f5"/>
+        <text x="270" y="63" class="nome">ControleRemoto</text>
+        <line x1="40" y1="76" x2="500" y2="76" stroke="#bfc0c0"/>
+        <text x="54" y="96" class="membro">- historico: Deque&lt;Comando&gt; {readOnly}</text>
+        <line x1="40" y1="108" x2="500" y2="108" stroke="#bfc0c0"/>
+        <text x="54" y="128" class="membro">+ pressionar(Comando): void</text>
+        <text x="54" y="148" class="membro">+ desfazerUltimo(): boolean</text>
+        <text x="54" y="168" class="membro">+ getTotalComandos(): int</text>
+    </g>
+    <g id="comando">
+        <rect x="680" y="40" width="440" height="100" rx="6" fill="#ffffff" stroke="#eb6c36"/>
+        <rect x="680" y="40" width="440" height="100" rx="6" fill="rgba(235,108,54,0.08)" stroke="#eb6c36"/>
+        <path d="M686 40 H1114 Q1120 40 1120 46 V88 H680 V46 Q680 40 686 40" fill="#fff1eb"/>
+        <text x="900" y="59" class="tag">«interface»</text>
+        <text x="900" y="78" class="nome">Comando</text>
+        <line x1="680" y1="88" x2="1120" y2="88" stroke="#bfc0c0"/>
+        <text x="694" y="108" class="membro">+ executar(): void</text>
+        <text x="694" y="128" class="membro">+ desfazer(): void</text>
+    </g>
+    <g id="ligar-lampada-comando">
+        <rect x="40" y="300" width="520" height="120" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M46 300 H554 Q560 300 560 306 V336 H40 V306 Q40 300 46 300" fill="#f1f3f5"/>
+        <text x="300" y="323" class="nome">LigarLampadaComando</text>
+        <line x1="40" y1="336" x2="560" y2="336" stroke="#bfc0c0"/>
+        <text x="54" y="356" class="membro">- lampada: Lampada {readOnly}</text>
+        <line x1="40" y1="368" x2="560" y2="368" stroke="#bfc0c0"/>
+        <text x="54" y="388" class="membro">+ executar(): void</text>
+        <text x="54" y="408" class="membro">+ desfazer(): void</text>
+    </g>
+    <g id="ajustar-temperatura-comando">
+        <rect x="640" y="300" width="500" height="160" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M646 300 H1134 Q1140 300 1140 306 V336 H640 V306 Q640 300 646 300" fill="#f1f3f5"/>
+        <text x="890" y="323" class="nome">AjustarTemperaturaComando</text>
+        <line x1="640" y1="336" x2="1140" y2="336" stroke="#bfc0c0"/>
+        <text x="654" y="356" class="membro">- termostato: Termostato {readOnly}</text>
+        <text x="654" y="376" class="membro">- novaTemperatura: int {readOnly}</text>
+        <text x="654" y="396" class="membro">- temperaturaAnterior: int</text>
+        <line x1="640" y1="408" x2="1140" y2="408" stroke="#bfc0c0"/>
+        <text x="654" y="428" class="membro">+ executar(): void</text>
+        <text x="654" y="448" class="membro">+ desfazer(): void</text>
+    </g>
+    <g id="lampada">
+        <rect x="40" y="600" width="520" height="180" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M46 600 H554 Q560 600 560 606 V636 H40 V606 Q40 600 46 600" fill="#f1f3f5"/>
+        <text x="300" y="623" class="nome">Lampada</text>
+        <line x1="40" y1="636" x2="560" y2="636" stroke="#bfc0c0"/>
+        <text x="54" y="656" class="membro">- ambiente: String {readOnly}</text>
+        <text x="54" y="676" class="membro">- ligada: boolean</text>
+        <line x1="40" y1="688" x2="560" y2="688" stroke="#bfc0c0"/>
+        <text x="54" y="708" class="membro">+ ligar(): void</text>
+        <text x="54" y="728" class="membro">+ desligar(): void</text>
+        <text x="54" y="748" class="membro">+ isLigada(): boolean</text>
+        <text x="54" y="768" class="membro">+ getAmbiente(): String</text>
+    </g>
+    <g id="termostato">
+        <rect x="640" y="600" width="500" height="120" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M646 600 H1134 Q1140 600 1140 606 V636 H640 V606 Q640 600 646 600" fill="#f1f3f5"/>
+        <text x="890" y="623" class="nome">Termostato</text>
+        <line x1="640" y1="636" x2="1140" y2="636" stroke="#bfc0c0"/>
+        <text x="654" y="656" class="membro">- temperatura: int</text>
+        <line x1="640" y1="668" x2="1140" y2="668" stroke="#bfc0c0"/>
+        <text x="654" y="688" class="membro">+ getTemperatura(): int</text>
+        <text x="654" y="708" class="membro">+ setTemperatura(int): void</text>
+    </g>
+</svg>
+</body>
+</html>
